@@ -1137,12 +1137,12 @@ func (spl *SubProgLocation) verifierStmt() {}
 func parsePropagatePrecision(line string) VerifierStatement {
 	line = strings.TrimPrefix(line, "propagating ")
 	if strings.HasPrefix(line, "r") {
-		regInt, err := strconv.Atoi(strings.TrimPrefix(line, "r"))
+		regUint, err := strconv.ParseUint(strings.TrimPrefix(line, "r"), 10, 8)
 		if err != nil {
-			return &Error{Msg: fmt.Sprintf("register number atoi: %s", err)}
+			return &Error{Msg: fmt.Sprintf("register number parse uint: %s", err)}
 		}
 
-		reg := asm.Register(regInt)
+		reg := asm.Register(regUint)
 		return &PropagatePrecision{
 			Register: &reg,
 		}
