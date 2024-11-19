@@ -17,11 +17,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
   
-      - name: Run golangci-lint with autofix
+      - name: Run linters
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.51.2
-          args: --config=.golangci.yml --fix --out-format=github-actions
+          args: run --config=.golangci.yml --fix
       - name: Commit changes if autofix made edits
         run: |
           git config --global user.name "github-actions[bot]"
