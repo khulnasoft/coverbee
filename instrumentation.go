@@ -8,11 +8,11 @@ import (
 	"path/filepath"
 	"unsafe"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/khulnasoft/coverbee/pkg/verifierlog"
 	"github.com/khulnasoft/gbpf"
 	"github.com/khulnasoft/gbpf/asm"
 	"github.com/khulnasoft/gbpf/btf"
+	"github.com/davecgh/go-spew/spew"
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/cover"
 )
@@ -89,29 +89,12 @@ func InstrumentCollection(coll *ebpf.CollectionSpec, logWriter io.Writer) ([]*Ba
 	clonedOpts := ebpf.CollectionOptions{
 		Programs: ebpf.ProgramOptions{
 			LogLevel: ebpf.LogLevelInstruction,
-			LogSize:  1 << 20,
 		},
 	}
 
-	const maxAttempts = 5
-	var (
-		cloneColl *ebpf.Collection
-		err       error
-	)
-	for i := 0; i < maxAttempts; i++ {
-		cloneColl, err = ebpf.NewCollectionWithOptions(clone, clonedOpts)
-		if err != nil {
-			var verifierErr *ebpf.VerifierError
-			if errors.As(err, &verifierErr) && verifierErr.Truncated {
-				// Increase size by the power of four, so going: 1, 4, 16, 64, 256
-				clonedOpts.Programs.LogSize = clonedOpts.Programs.LogSize << 2
-				continue
-			}
-
-			return nil, fmt.Errorf("load program: %w", err)
-		}
-
-		break
+	cloneColl, err := ebpf.NewCollectionWithOptions(clone, clonedOpts)
+	if err != nil {
+		return nil, fmt.Errorf("load program: %w", err)
 	}
 
 	if logWriter != nil {
