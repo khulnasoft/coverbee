@@ -3,7 +3,7 @@ module github.com/khulnasoft/coverbee
 go 1.21
 
 require (
-	github.com/alecthomas/participle/v2 v2.0.0-beta.4
+	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/andreyvit/diff v0.0.0-20170406064948-c7f18ee00883
 	github.com/khulnasoft/gbpf v0.0.0-20231105121751-4ec6097129ef
 	github.com/davecgh/go-spew v1.1.1
