@@ -18,6 +18,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Format code
+        run: gofumpt -w .
+  
       - name: Run golangci-lint with autofix
         uses: golangci/golangci-lint-action@v3
         with:
