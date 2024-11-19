@@ -8,11 +8,11 @@ import (
 	"path/filepath"
 	"unsafe"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/khulnasoft/coverbee/pkg/verifierlog"
 	"github.com/khulnasoft/gbpf"
 	"github.com/khulnasoft/gbpf/asm"
 	"github.com/khulnasoft/gbpf/btf"
-	"github.com/davecgh/go-spew/spew"
 	"golang.org/x/exp/slices"
 	"golang.org/x/tools/cover"
 )
