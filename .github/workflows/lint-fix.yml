@@ -21,7 +21,7 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.51.2
-          args: run --config=.golangci.yml --fix
+          args: --config=.golangci.yml --fix --out-format=github-actions
       - name: Commit changes if autofix made edits
         run: |
           git config --global user.name "github-actions[bot]"
