@@ -3,51 +3,41 @@ run:
 
 linters-settings:
   errcheck:
-    check-type-assertions: true  # Report missing error checks in type assertions
-    check-blank: true           # Report errors assigned to blank identifier
+    check-type-assertions: true
+    check-blank: true
 
   govet:
-    check-shadowing: true       # Report shadowed variables
-    enable-all: true            # Enable all analyzers (if necessary; otherwise, specify the desired ones explicitly)
+    check-shadowing: true
 
   lll:
-    line-length: 120            # Max line length
-    tab-width: 4                # Tab width in spaces
+    line-length: 120
+    tab-width: 4
 
   misspell:
-    locale: US                  # Use US English for spell checking
-    ignore-words: []            # Specify words to ignore (empty by default)
+    locale: US
+    ignore-words: []
 
 linters:
-  disable-all: true             # Start with all linters disabled (recommended for granular control)
+  disable-all: true
   enable:
     - govet                    # Standard Go vet checks
     - errcheck                 # Check for missing error handling
-    - staticcheck              # Perform advanced static analysis
-    - gosimple                 # Highlight simpler alternatives for code
-    - structcheck              # Find unused struct fields
-    - varcheck                 # Check unused global variables/constants
+    - staticcheck              # Advanced static analysis
+    - gosimple                 # Simplify complex code
     - ineffassign              # Highlight ineffectual assignments
-    - deadcode                 # Detect dead or unreachable code
     - bodyclose                # Ensure HTTP response bodies are closed
-    - gofmt                    # Enforce Go formatting standards
-    - gofumpt                  # Stricter version of gofmt
-    - gosec                    # Scan for common security issues
+    - gofmt                    # Enforce Go formatting
+    - gofumpt                  # Stricter formatting than gofmt
+    - gosec                    # Check for security vulnerabilities
     - unconvert                # Remove unnecessary type conversions
-    - misspell                 # Find and fix misspelled words in comments
+    - misspell                 # Detect spelling issues in comments
     - lll                      # Detect long lines
     - revive                   # Replacement for golint
-    - depguard                 # Ensure certain dependencies are not used
+    - depguard                 # Restrict certain dependencies
+    - unused                   # Replaces structcheck, varcheck, and deadcode
 
 issues:
   exclude-rules:
-    # Ignore struct field alignment warnings for readability purposes
     - text: "fieldalignment:"
       linters:
         - govet
-
-# Notes:
-# - Removed deprecated `enable-all` from the `linters` block as its usage is discouraged.
-# - Replaced `unused` with `gosimple` and `staticcheck` (recommended replacements to avoid false positives).
-# - Excluded `golint` due to deprecation.
-# - Updated comments for better clarity.
